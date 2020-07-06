@@ -41,6 +41,7 @@
     Dependency: spring-cloud-starter-netflix-hystrix
     Add @EnableCircuitBreaker to application class
     Add @HystrixCommand to methods that need circuit breaker
+    
     ```
     @HystrixCommand(fallbackMethod = "carsFallback")
 	  public List<CarInfoDto> cars() {
