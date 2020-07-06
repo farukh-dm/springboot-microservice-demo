@@ -75,8 +75,23 @@
 	
     Hysterix Dashboard:
         Add Dependencies: spring-cloud-starter-netflix-hystrix-dashboard & spring-cloud-starter-actuator
-	Add @EnableHystrixDashboard to application class
-	Add to application.properties: management.endpoints.web.exposure.include=hystrix.stream
+        Add @EnableHystrixDashboard to application class
+        Add to application.properties: management.endpoints.web.exposure.include=hystrix.stream
         {host}:{port}/{context-root}/hystrix/monitor
-	{host}:{port}/{context-root}/actuator/hystrix.stream
+        {host}:{port}/{context-root}/actuator/hystrix.stream
+	
+    BulkHead Pattern:
+        
+        @HystrixCommand(
+        	fallbackMethod = "getFallback",
+        	threadPoolKey = "manufacturerServicePool",
+		threadPoolProperties = {
+			@HystrixProperty(name = "coreSize", value = "5"),
+			@HystrixProperty(name = "maxQueued", value = "2")
+                }
+        )
+        public ManufacturerDto anotherGet(Integer manufacturerid) {
+        ..
+        }
+	
     
