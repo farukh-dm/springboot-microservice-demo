@@ -46,7 +46,10 @@
     Add @EnableCircuitBreaker to application class
     
     Add @HystrixCommand to methods that need circuit breaker
-    	
+        
+	This creates a proxy class on top of your class & this proxy has logic for circuit breaker functionality.
+	In case of error, that logic kind of checks for fallback method & calls it, if available.
+	
     	@HystrixCommand(fallbackMethod = "carsFallback")
     	public List<CarInfoDto> cars() {
     	  ..
