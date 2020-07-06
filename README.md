@@ -61,4 +61,19 @@
 	    
     Configure Hystrix behavior / provide parameters for deciding to break circuit.
     
+    	@HystrixCommand(fallbackMethod = "carsFallback",
+		commandProperties = {
+			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500"),
+			//@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "500"),
+			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+			@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+			@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")
+		})
+	public List<CarInfoDto> cars() {
+	...
+	}
+	
+    Hysterix Dashboard:
+    
+    
     
