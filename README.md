@@ -48,9 +48,9 @@
     Add @HystrixCommand to methods that need circuit breaker
     	
     	@HystrixCommand(fallbackMethod = "carsFallback")
-	public List<CarInfoDto> cars() {
-	  ..
-	}
+    	public List<CarInfoDto> cars() {
+    	  ..
+    	}
 
     	public List<CarInfoDto> carsFallback() {
     	  ..
