@@ -48,5 +48,27 @@ public class ManufacturerMicroService {
 		return new ManufacturerDto(manufacturerid, "NA");
 		
 	}
+	
+	@HystrixCommand(
+		fallbackMethod = "getFallback",
+		threadPoolKey = "manufacturerServicePool",
+		threadPoolProperties = {
+			@HystrixProperty(name = "coreSize", value = "5"),
+			@HystrixProperty(name = "maxQueued", value = "2")
+		}
+	)
+	public ManufacturerDto anotherGet(Integer manufacturerid) {
+		
+		ManufacturerDto dto = null;
+		
+		StringBuilder serviceUriBuilder = new StringBuilder(appUtils.getServiceUri("SB-CAR-MANUFACTURER-SERVICE"));
+		serviceUriBuilder.append("/manufacturers/").append(manufacturerid.toString());
+		
+		// Make call to manufacturer service for each car manufacturer's id
+		dto = restTemplate.getForObject(serviceUriBuilder.toString(), ManufacturerDto.class);
+		
+		return dto;
+		
+	}
 
 }
