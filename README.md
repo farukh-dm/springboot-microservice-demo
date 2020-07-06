@@ -20,5 +20,6 @@
       How many of last n requests are failing? (Example: 3 requests)
       Request failure timeout. After how much time, mark request as failed? (Example: 5 Seconds)
 
-   Resumimg circuit:
-     How long to wait, before re-trying connection? (Example: 10 Seconds)
+    Resumimg circuit:
+   
+      How long to wait, before re-trying connection? (Example: 10 Seconds)
