@@ -69,11 +69,14 @@
 			@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
 			@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000")
 		})
-	public List<CarInfoDto> cars() {
-	...
-	}
+        public List<CarInfoDto> cars() {
+        ...
+        }
 	
     Hysterix Dashboard:
-    
-    
+        Add Dependencies: spring-cloud-starter-netflix-hystrix-dashboard & spring-cloud-starter-actuator
+	Add @EnableHystrixDashboard to application class
+	Add to application.properties: management.endpoints.web.exposure.include=hystrix.stream
+        {host}:{port}/{context-root}/hystrix/monitor
+	{host}:{port}/{context-root}/actuator/hystrix.stream
     
