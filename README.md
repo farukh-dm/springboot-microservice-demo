@@ -46,16 +46,15 @@
     Add @EnableCircuitBreaker to application class
     
     Add @HystrixCommand to methods that need circuit breaker
-    	```
-	    @HystrixCommand(fallbackMethod = "carsFallback")
-		  public List<CarInfoDto> cars() {
-	    ...
-	    }
+    	
+    	@HystrixCommand(fallbackMethod = "carsFallback")
+	  public List<CarInfoDto> cars() {
+	  ...
+	}
 
-	    public List<CarInfoDto> carsFallback() {
-	    ..
-	    }
-    	```
+    	public List<CarInfoDto> carsFallback() {
+    	..
+    	}    	
     
     Configure Hystrix behavior / provide parameters for deciding to break circuit.
     
