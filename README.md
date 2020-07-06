@@ -29,4 +29,7 @@
       1. Respond with error
       2. Respond with some default response (Recommended)
       3. Cache previous responses & use them, if applicable.
+      
+    Circuit Breaker Pattern:
+      When to break circuit | What to do when circuit breaks | When to resume requests
     
