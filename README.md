@@ -112,7 +112,18 @@
     => {host}/{context-root}/actuator/app-features
   
   
+    Actuator Custom End Points using Rest Controller:
     
-  
+    @Component
+    @RestControllerEndpoint(id = "app-rest-end-point", enableByDefault = true)
+    // Create an Actuator endpoint.
+
+    public class RestControllerEndPoint {
+	
+      @GetMapping("/demo")
+      public ResponseEntity<String> read(){
+        return new ResponseEntity<>("My RestControllerEndPoint Demo", HttpStatus.OK);
+      }
+    }
     
 
