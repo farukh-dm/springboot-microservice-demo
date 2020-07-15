@@ -1,5 +1,15 @@
 > Actuator
 
+	some properties:
+	
+	  management.endpoints.web.base-path=/actuator
+		management.endpoints.web.exposure.include=hystrix.stream,health,info,app-features,app-rest-end-point
+		management.endpoints.web.exposure.exclude=beans,metrics
+		#management.endpoints.web.exposure.include=*
+
+		#management.endpoint.health.enabled=true
+		management.endpoints.enabled-by-default=true
+
 	Actuator Custom End Points:
 
 		https://www.baeldung.com/spring-boot-actuators
@@ -31,4 +41,15 @@
 	Custom Health Indicator:
 
 	  You can implements HealthIndicator & override health() method acocdingly.
+		
+	Security:
+	
+	  Depenency: spring-boot-starter-security
+		By Default, all endpoints are secured, except: /health & /info
+		
+		spring.security.user.name=lorem
+		spring.security.user.password=ipsum
+		
+		
+		
 
