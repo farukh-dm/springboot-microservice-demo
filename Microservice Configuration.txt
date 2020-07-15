@@ -1,0 +1,167 @@
+Understanding MS configuration goals
+
+Config in springboot
+	Value, ConfigProps, Actuator, Spring Profile, Environment
+
+Spring cloud config server
+
+dynamic configuration
+
+best practices & patterns
+
+Configurations:
+---------------
+
+DB Credentials
+Feature Flags
+Business Logic Configuration Parameters
+Scenario Testing
+Springboot Configurations
+
+Goals:
+------
+
+	Externalized
+	------------  
+	  
+	  @Value
+	  ------
+	  
+		  https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config
+		  
+		  @Value("${some.config : default-value}")
+		  private String str1;
+		  
+		  @Value("static value")
+		  private String str2;
+		  
+		  @Value("${some.config.with.comma}") // some.config.with.comma = a,b,c
+		  private List<String> strList;
+		  
+		  // #{} -> SPEL: Spring Expression Language
+		  @Value("#{${some.config.with.key-value}}") // some.config.with.key-value = {key1:value1, key2:value2}
+		  private Map<String, String> strMap;
+	  
+	  @ConfigurationProperties
+	  ------------------------
+	  
+	  applicaition.properties:
+	  
+	  db.connection=
+	  db.host=
+	  db.port=
+	  
+	  @Configuration
+		  @ConfigurationProperties("db")
+		  public class DBParams {
+		  
+		  	String connection;
+		  	String host;
+		  	String port;
+		  	
+		  	//getter & setter
+		  
+		  }
+		  
+		  Use it as:
+		  
+		  Autowired
+		  DBParams dbParams;
+	  
+	  Actuators:
+	  ----------
+	  
+		  management.endpoints.web.exposue.include=*
+		  
+		  /actuator/configprops
+		  
+		  
+	Environment Specific
+	--------------------
+	
+			Spring Profiles:
+			----------------
+	
+		  	application-{profile-name}.extn
+		  	
+		  	Example: application-test.properties
+		  					 application-qa.properties
+		  					 application-prod.properties
+		  	
+		  	in application.properties:
+		  	add: spring.profiles.active=test
+			
+				You can override active profile using command line arguments:
+				
+				java -jar abc.jar --spring.profiles.active=qa
+			
+			Bean initialization based on profile.
+			------------------------------------
+			
+				@Component
+				@Profile("qa")
+				public class Abc {..}
+			
+		Environment (Not Recommended):
+		------------------------------
+		
+			Environment is a bean that you can inject using Autowire.
+			environment type internally extends property resolver.
+			
+			@Autowired
+			Environment environment; // from spring package
+			
+			environment.getActiveProfiles();
+			environment.getProperty("a.b.c");
+
+		
+	Consistent (Spring Cloud Config Server)
+	-----------
+	
+	  Config as a microservice
+	  
+	  Spring Cloud Config Server:
+	  ---------------------------
+		  Create a springboot application with "Config Server" dependency
+		  * 
+		  Add @EnableConfigServer to main class
+		  spring.cloud.config.server.git.uri=
+		  server.port=8888 #standard
+		  
+		  Example: 
+		  application.yml    // 
+		  microservice1.yml // used additionally when microservice1 makes a request 
+		  microservice2.yml // Used additionally when microservice2 makes a request
+		  
+		  URL would be: http://localhost:8888/<file-name-without-extension>/<profile>
+		  Example: http://localhost:8888/application/default
+		  
+		 Spring Cloud Config Client:
+	   ---------------------------
+	  	Add dependency: "Config Client" OR spring-cloud-starter-config
+	  	spring.cloud.config.uri= http://localhost:8888
+	  
+	  Options:
+	  -------
+	    Apache Zookeeper
+	    ETDC - Distributed key-value store
+	    Hashicorp consul
+	    Spring Cloud Config Server
+	    
+	  	
+	Version History (Config files on GIT Repo)
+	---------------
+	
+	Real Time Management (Refresh Properties)
+  --------------------
+  
+	  If there's any change in config files. Config server will have that update.
+	  But for config client, it got the config, when it was started. In order to get real time updates:
+  
+  		include actuator
+  		configure a hook to fetch update from spring config server: 
+  		POST /actuator/refresh
+  		
+  		Mark the spring classes/components that should be refreshed using @RefreshScope
+  
+  
