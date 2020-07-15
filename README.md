@@ -126,4 +126,8 @@
       }
     }
     
+    Custom Health Indicator:
+    
+    You can implements HealthIndicator & override health() method acocdingly.
+    
 
