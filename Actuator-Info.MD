@@ -1,4 +1,4 @@
-> Others
+> Actuator
 
     Actuator Custom End Points:
   
