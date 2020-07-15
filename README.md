@@ -95,21 +95,21 @@
         }
 	
     
-> Others
+  > Others
 
-  Actuator Custom End Points:
+    Actuator Custom End Points:
   
-  https://www.baeldung.com/spring-boot-actuators
+    https://www.baeldung.com/spring-boot-actuators
   
-  @Component
-  @Endpoint(id = "app-features", enableByDefault = true)
-  // Create an Actuator endpoint to query, enable, and disable feature flags in our application
-  public class FeaturesEndPoint {
-    ...
-    ...
-  }
+    @Component
+    @Endpoint(id = "app-features", enableByDefault = true)
+    // Create an Actuator endpoint to query, enable, and disable feature flags in our application
+    public class FeaturesEndPoint {
+      ...
+      ...
+    }
   
-  => {host}/{context-root}/actuator/app-features
+    => {host}/{context-root}/actuator/app-features
   
   
     
